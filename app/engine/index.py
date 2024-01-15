@@ -10,6 +10,7 @@ from llama_index.agent import OpenAIAgent
 from llama_index.tools import FunctionTool
 
 from app.engine.tools.multiply import MultiplySpec
+from app.engine.tools.calendar import CalendarSpec
 from app.engine.tools.add import add
 
 
@@ -49,8 +50,9 @@ def get_agent():
 
     multiply_tool = MultiplySpec().to_tool_list()
     add_tool = FunctionTool.from_defaults(fn=add)
+    calendar_tool = CalendarSpec().to_tool_list()
 
-    tools = multiply_tool + query_engine_tools + [add_tool]
+    tools = calendar_tool + multiply_tool + query_engine_tools + [add_tool]
 
     agent = OpenAIAgent.from_tools(
         tools, 
